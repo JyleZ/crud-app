@@ -144,7 +144,7 @@ function hamtaMonster() {
 
   const sparadeMonster = localStorage.getItem("allaMonster") || "[]"
 
-  if (sparaMonster) {
+  if (sparadeMonster) {
     // Gör om det så det passar en array
     allaMonster = JSON.parse(sparadeMonster)
   }
