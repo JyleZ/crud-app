@@ -5,6 +5,7 @@ const monsterUl = document.querySelector("#monsterLista")
 // Skapar en array som ska spara alla mösnster att sticka
 let allaMonster = []
 
+console.log("Nu kör vi")
 hamtaMonster()
 uppdateraLista()
 
@@ -18,12 +19,14 @@ monsterUl.addEventListener("click", hanteraKlick)
  * @param {*} e
  */
 function laggTill(e) {
+  console.log("Börjar lägga till vi knapptryckning")
   // Hindrar inputfältet att ladda om ifall något blir fel
   e.preventDefault()
   // Trimmar tomma utrymmen i strängen
-  const inputText = input.value.trim()
+  var inputText = input.value.trim()
   // Om inmatningen innehåller något (Felhantering) körs kodblocket
   if (inputText.length > 0) {
+    console.log(inputText)
     allaMonster.push(inputText)
     uppdateraLista()
     sparaMonster()
@@ -35,11 +38,15 @@ function laggTill(e) {
  * Skapar ett li-element av värdena i arrayen, lägger in det i Ul-listan
  */
 function uppdateraLista() {
+  console.log("Nu uppdaterar vi listan")
+
   monsterUl.innerHTML = ""
-  allaMonster.forEach((monster, monsterIndex) => {
-    const monsterItem = skapaLiElement(monster, monsterIndex)
-    monsterUl.append(monsterItem)
-  })
+  if (allaMonster) {
+    allaMonster.forEach((monster, monsterIndex) => {
+      const monsterItem = skapaLiElement(monster, monsterIndex)
+      monsterUl.append(monsterItem)
+    })
+  }
 }
 
 /**
@@ -49,6 +56,8 @@ function uppdateraLista() {
  * @returns
  */
 function skapaLiElement(monster, monsterIndex) {
+  console.log("Dags att skapa li-element")
+
   const id = monsterIndex
   const monsterLi = document.createElement("li")
   monsterLi.className = "list-group-item d-flex"
@@ -75,6 +84,8 @@ function skapaLiElement(monster, monsterIndex) {
  * @returns
  */
 function hanteraKlick(e) {
+  console.log("Nu ska vi hantera klick")
+
   const knapp = e.target.closest("i")
   if (!knapp) return
 
@@ -93,6 +104,8 @@ function hanteraKlick(e) {
  * @param {*} index
  */
 function taBort(index) {
+  console.log("Tar bort element")
+
   allaMonster.splice(index, 1)
   uppdateraLista()
   sparaMonster()
@@ -104,6 +117,8 @@ function taBort(index) {
  * @param {*} index
  */
 function redigera(index) {
+  console.log("Redigera element")
+
   const nyttNamn = prompt("Redigera namnet på mönstret:", allaMonster[index])
   if (nyttNamn.length > 0) {
     allaMonster[index] = nyttNamn.trim()
@@ -116,6 +131,8 @@ function redigera(index) {
  * Sparar till localstorage
  */
 function sparaMonster() {
+  console.log("nu sparar vi")
+
   localStorage.setItem("allaMonster", JSON.stringify(allaMonster))
 }
 
@@ -123,10 +140,15 @@ function sparaMonster() {
  * Hämtar värdena i localstorage
  */
 function hamtaMonster() {
-  const sparadeMonster = localStorage.getItem("allaMonster")
+  console.log("Dags att hämta in")
+
+  const sparadeMonster = localStorage.getItem("allaMonster") /*  || "[]" */
 
   if (sparaMonster) {
     // Gör om det så det passar en array
     allaMonster = JSON.parse(sparadeMonster)
   }
+  /* return allaMonster */
 }
+
+console.log("SLUT")
