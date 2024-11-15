@@ -142,13 +142,13 @@ function sparaMonster() {
 function hamtaMonster() {
   console.log("Dags att hämta in")
 
-  const sparadeMonster = localStorage.getItem("allaMonster") /*  || "[]" */
+  const sparadeMonster = localStorage.getItem("allaMonster") || "[]"
 
   if (sparaMonster) {
     // Gör om det så det passar en array
     allaMonster = JSON.parse(sparadeMonster)
   }
-  /* return allaMonster */
+  return allaMonster
 }
 
 console.log("SLUT")
